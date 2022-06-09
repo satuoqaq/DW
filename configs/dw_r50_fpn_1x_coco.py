@@ -28,18 +28,18 @@ model = dict(
         feat_channels=256,
         strides=[8, 16, 32, 64, 128],
         loss_bbox=dict(type='GIoULoss', loss_weight=1.0)),
-    train_cfg = None,
+    train_cfg=None,
     test_cfg=dict(
-            nms_pre=1000,
-            min_bbox_size=0,
-            score_thr=0.05,
-            nms=dict(type='nms', iou_threshold=0.6),
-            max_per_img=100,
-            with_nms=True)
-    )
+        nms_pre=1000,
+        min_bbox_size=0,
+        score_thr=0.05,
+        nms=dict(type='nms', iou_threshold=0.6),
+        max_per_img=100,
+        with_nms=True)
+)
 
 dataset_type = 'CocoDataset'
-data_root = 'data/coco/'
+data_root = '../data/coco/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -89,8 +89,8 @@ data = dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/instances_val2017.json',
         img_prefix=data_root + 'val2017/',
-        #ann_file=data_root + 'annotations/image_info_test-dev2017.json',
-        #img_prefix=data_root + 'test2017/',
+        # ann_file=data_root + 'annotations/image_info_test-dev2017.json',
+        # img_prefix=data_root + 'test2017/',
         pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
 
@@ -101,12 +101,12 @@ optimizer_config = dict(
 
 # learning policy
 lr_config = dict(
-    policy='step', 
+    policy='step',
     warmup='linear',
     warmup_iters=1000,
     warmup_ratio=0.001,
     step=[8, 11])
-#total_epochs = 12
+# total_epochs = 12
 runner = dict(type='EpochBasedRunner', max_epochs=12)
 checkpoint_config = dict(interval=2)
 # yapf:disable
